@@ -1,0 +1,152 @@
+<class-diagram version="0.9.86" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <interface corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.ExpressionAPI" 
+    project="EasyDriver" file="/EasyDriver/src/org/byteliberi/easydriver/expressions/ExpressionAPI.java" binary="false">    
+    <position x="357" y="48" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.DualOperator" 
+    project="EasyDriver" file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false">    
+    <position x="529" y="276" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.DualOperator.Builder" 
+    project="EasyDriver" file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false">    
+    <position x="839" y="143" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.And" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/expressions/And.java" binary="false">    
+    <position x="825" y="336" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.Between" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Between.java" binary="false">    
+    <position x="187" y="368" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.Different" 
+    project="EasyDriver" file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Different.java" binary="false">    
+    <position x="730" y="589" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.Equals" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Equals.java" binary="false">    
+    <position x="532" y="587" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.Like" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Like.java" binary="false">    
+    <position x="340" y="586" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.Not" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Not.java" binary="false">    
+    <position x="128" y="181" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.expressions.Or" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Or.java" binary="false">    
+    <position x="827" y="430" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <realization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Between" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Between.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.ExpressionAPI" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/ExpressionAPI.java" binary="false"/>  
+  </realization>  
+  <nesting>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator.Builder" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>  
+  </nesting>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Different" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Different.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>  
+  </generalization>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Or" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Or.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>  
+  </generalization>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Equals" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Equals.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>  
+  </generalization>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.And" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/And.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>  
+  </generalization>  
+  <realization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.ExpressionAPI" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/ExpressionAPI.java" binary="false"/>  
+  </realization>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Like" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Like.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.DualOperator" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/DualOperator.java" binary="false"/>  
+  </generalization>  
+  <association>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Not" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Not.java" binary="false" navigable="false">      
+      <attribute name="expression"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </source>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.ExpressionAPI" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/ExpressionAPI.java" binary="false" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.expressions.Not" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/Not.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.expressions.ExpressionAPI" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/expressions/ExpressionAPI.java" binary="false"/>  
+  </realization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

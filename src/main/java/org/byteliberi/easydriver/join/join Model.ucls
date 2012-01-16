@@ -1,0 +1,58 @@
+<class-diagram version="0.9.86" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.join.Join" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/join/Join.java" binary="false">    
+    <position x="183" y="37" width="109" height="142"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.join.LeftJoin" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/join/LeftJoin.java" binary="false">    
+    <position x="326" y="219" width="97" height="78"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.join.RightJoin" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/join/RightJoin.java" binary="false">    
+    <position x="183" y="219" width="103" height="78"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="org.byteliberi.easydriver.join.InnerJoin" project="EasyDriver" 
+    file="/EasyDriver/src/org/byteliberi/easydriver/join/InnerJoin.java" binary="false">    
+    <position x="41" y="219" width="102" height="78"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.join.RightJoin" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/join/RightJoin.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.join.Join" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/join/Join.java" binary="false"/>  
+  </generalization>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.join.InnerJoin" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/join/InnerJoin.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.join.Join" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/join/Join.java" binary="false"/>  
+  </generalization>  
+  <generalization>    
+    <source project="EasyDriver" name="org.byteliberi.easydriver.join.LeftJoin" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/join/LeftJoin.java" binary="false"/>    
+    <target project="EasyDriver" name="org.byteliberi.easydriver.join.Join" 
+      file="/EasyDriver/src/org/byteliberi/easydriver/join/Join.java" binary="false"/>  
+  </generalization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
