@@ -27,7 +27,7 @@ import org.byteliberi.easydriver.DBTable;
 import org.byteliberi.easydriver.ObjectFactory;
 import org.byteliberi.easydriver.SelectQuery;
 import org.byteliberi.easydriver.TableField;
-import org.byteliberi.easydriver.expressions.ExpressionAPI;
+import org.byteliberi.easydriver.ExpressionAPI;
 import org.byteliberi.easydriver.impl.Query;
 import org.byteliberi.easydriver.impl.ReadQuery;
 import org.byteliberi.easydriver.impl.ReadQueryAPI;

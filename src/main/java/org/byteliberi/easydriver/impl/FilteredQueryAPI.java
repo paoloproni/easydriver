@@ -20,7 +20,7 @@
 package org.byteliberi.easydriver.impl;
 
 import org.byteliberi.easydriver.TableField;
-import org.byteliberi.easydriver.expressions.ExpressionAPI;
+import org.byteliberi.easydriver.ExpressionAPI;
 
 /**
  * This interface is implemented by the queries which can have

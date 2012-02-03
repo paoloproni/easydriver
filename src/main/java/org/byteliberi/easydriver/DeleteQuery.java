@@ -22,7 +22,6 @@ package org.byteliberi.easydriver;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.byteliberi.easydriver.expressions.ExpressionAPI;
 import org.byteliberi.easydriver.impl.ExecutableQuery;
 import org.byteliberi.easydriver.impl.FilteredQuery;
 import org.byteliberi.easydriver.impl.FilteredQueryAPI;

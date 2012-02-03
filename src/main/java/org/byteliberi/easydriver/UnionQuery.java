@@ -94,24 +94,25 @@ public class UnionQuery<T> extends Query implements ReadQueryAPI<T> {
 	
 	@Override
 	protected String createQueryString() {
-		final StringBuilder sbQuery = new StringBuilder(100);
-		sbQuery.append('(').append(firstQuery.createQueryString()).append(')').append(UNION);
-		if (unionAll)
-			sbQuery.append(ALL);
-		sbQuery.append('(').append(secondQuery.createQueryString()).append(')');	
-		
-		final String queryStr = sbQuery.toString();
-		Logger.getLogger(SelectQuery.class.getName()).info(queryStr);
+            final StringBuilder sbQuery = new StringBuilder(100);
+            sbQuery.append('(').append(firstQuery.createQueryString()).append(')').append(UNION);
+            if (unionAll)
+                sbQuery.append(ALL);
+            sbQuery.append('(').append(secondQuery.createQueryString()).append(')');	
 
-		return queryStr;
+            final String queryStr = sbQuery.toString();
+            Logger.getLogger(SelectQuery.class.getName()).info(queryStr);
+
+            return queryStr;
 	}
 	
 	/**
 	 * This method creates the <code>select</code> section of the query     
 	 */
-	public TableField<?>[] getSelectFields() {
-		return this.firstQuery.getSelectFields();
-	}
+    @Override
+    public TableField<?>[] getSelectFields() {
+            return this.firstQuery.getSelectFields();
+    }
 
 	@Override
 	public synchronized T getSingleResult() throws SQLException {

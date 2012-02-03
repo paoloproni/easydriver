@@ -19,6 +19,7 @@
  */
 package org.byteliberi.easydriver.expressions;
 
+import org.byteliberi.easydriver.ExpressionAPI;
 import org.byteliberi.easydriver.TableField;
 
 import java.util.LinkedList;
@@ -104,4 +105,6 @@ public class Between implements ExpressionAPI {
     public List<TableField<?>> getParameters() {
         return this.parameters;
     }
+    
+    
 }

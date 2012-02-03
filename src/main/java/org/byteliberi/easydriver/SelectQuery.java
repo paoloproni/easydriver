@@ -1,7 +1,7 @@
 /*
  * EasyDriver is a library that let a programmer build queries easier
  * than using plain JDBC.
- * Copyright (C) 2011 Paolo Proni
+ * Copyright (C) 2012 Paolo Proni
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,15 +19,17 @@
  */
 package org.byteliberi.easydriver;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.byteliberi.easydriver.expressions.ExpressionAPI;
 import org.byteliberi.easydriver.impl.*;
 import org.byteliberi.easydriver.join.Join;
+import org.byteliberi.easydriver.postgresql.CustomPGOperators;
 
 /**
  * This is one of the most important classes, as it is the Select query.<p>
@@ -49,7 +51,12 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
     private final static String ORDER_BY = "\nORDER BY ";
     private final static String DISTINCT = " DISTINCT ";
 
-    private final static Level LOG_LEVEL = Level.FINE;
+    /**
+     * Constant as it is returned by the database JDBC driver.
+     */
+    private final static String POSTGRESQL = "PostgreSQL";
+    
+    private final static Level LOG_LEVEL = Level.INFO;
     
     /**
      * Factory which creates a new instance
@@ -104,25 +111,58 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      * If this is true, the select is going to contain the <pre>DISTINCT</pre>
      * keyword, in order to have no duplicate records.
      */
-    private boolean distinct = false;
+    private boolean distinct = false;   
+    
+    /**
+     * Native or special part of the query are defined here. 
+     */
+    protected CustomOperators customOperators;
     
     /**
      * Creates a new instance of this class.
+     * @param con Database connection 
      * @param table Main table read by this query
      * @param valueObjectFactory Factory which creates a new instance
      * of a value object and fills its properties with the values read from
      * a JDBC result set.
      */
-    public SelectQuery(final DBTable<?> table, final ObjectFactory<T> valueObjectFactory) {
-    	this(table.getFields(),
-    		 new DBTable[] { table }, new Join[0], 
-    		 new ExpressionAPI[0],
-    		 new TableField[0], 
-    		 valueObjectFactory);
+    public SelectQuery( final Connection con,
+                        final DBTable<?> table, 
+                        final ObjectFactory<T> valueObjectFactory) {
+        
+        this(con, table.getFields(), 
+             new DBTable[] { table }, new Join[0], 
+             new ExpressionAPI[0],
+             new TableField[0], 
+             valueObjectFactory);
+    }
+    
+
+    
+    /**
+     * Gets the metadata from the database connection.
+     * @param con Database connection.
+     * @return Contains the native part of a query, in order to use some specific
+     * functionality for a certain database.
+     */
+    private void defineDBType(final Connection con) {        
+        try {
+            final DatabaseMetaData dbmd = con.getMetaData();
+            final String dbName = dbmd.getDatabaseProductName();
+            if (POSTGRESQL.equals(dbName)) {
+               this.customOperators = new CustomPGOperators();
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(SelectQuery.class.getName())
+                  .log(Level.SEVERE, 
+                  "Impossible to get the database name from the connection metadata.", ex);
+        }        
     }
     
     /**
      * Creates a new instance of this class.
+     * @param con Database connection.
      * @param selectFields Fields that appear in the select part of the query
      * @param table Main table read by this query
      * @param whereCondition <code>WHERE</code> section of this query
@@ -130,22 +170,24 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      * of a value object and fills its properties with the values read from
      * a JDBC result set.
      */
-    public SelectQuery(final TableField<?>[] selectFields,
-    				   final DBTable<?> table,
-    				   final ExpressionAPI whereCondition,
-    				   final ObjectFactory<T> valueObjectFactory) {
+    public SelectQuery( final Connection con,
+                        final TableField<?>[] selectFields,
+                        final DBTable<?> table,
+                        final ExpressionAPI whereCondition,
+                        final ObjectFactory<T> valueObjectFactory) {
     	
-    	this(selectFields,
-    		 new DBTable[] { table }, 
-    		 new Join[0],
-    		 new ExpressionAPI[] { whereCondition },
-    		 new TableField<?>[0],
-    		 valueObjectFactory);
+    	this(con, selectFields,
+             new DBTable[] { table }, 
+             new Join[0],
+             new ExpressionAPI[] { whereCondition },
+             new TableField<?>[0],
+             valueObjectFactory);
     	
     }
     
     /**
      * Creates a new instance of this class.
+     * @param con Database connection
      * @param selectFields Fields that appear in the select part of the query.
      * @param tables Tables read by this query.
      * @param joins These are the joins to some external tables.
@@ -155,7 +197,8 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      * of a value object and fills its properties with the values read from
      * a JDBC result set.
      */
-    public SelectQuery(final TableField<?>[] selectFields,
+    public SelectQuery(final Connection con,
+                       final TableField<?>[] selectFields,
                        final DBTable<?>[] tables,
                        final Join<?>[] joins,
                        final ExpressionAPI[] whereCondition,
@@ -174,10 +217,16 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
         this.orderBy = orderByFields;
 
         this.valueObjectFactory = valueObjectFactory;
+        
+        defineDBType(con);
+    }
+    
+    public CustomOperators getCustomOperators() {
+        return this.customOperators;
     }
     
     public void setSelectFields(final TableField<?>[] selectFields) {
-        this.selectFields.addAll(Arrays.asList(selectFields));
+        this.selectFields = new LinkedList<TableField<?>>(Arrays.asList(selectFields));
     }
     
     public void setJoin(final Join<?>[] joins) {
@@ -209,19 +258,19 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      * @param sbQuery Query string to be completed
      */
     private void createSelect(final StringBuilder sbQuery) {
-		sbQuery.append(SELECT);
-		if (this.distinct)
-			sbQuery.append(DISTINCT);
-		
-		int i = 0;
-		for (TableField<?> field : selectFields) {
-			i++;
-			sbQuery.append(' ').append(field.getCompleteName())
-				   .append(AS_F).append(i).append(',');
-		}
-		final int len = sbQuery.length();
-		sbQuery.deleteCharAt(len - 1);		
-	}
+        sbQuery.append(SELECT);
+        if (this.distinct)
+                sbQuery.append(DISTINCT);
+
+        int i = 0;
+        for (TableField<?> field : selectFields) {
+            i++;
+            sbQuery.append(' ').append(field.getCompleteName())
+                   .append(AS_F).append(i).append(',');
+        }
+        final int len = sbQuery.length();
+        sbQuery.deleteCharAt(len - 1);		
+    }
 
     /**
      * This method creates the <code>FROM</code> section of the query
@@ -248,8 +297,8 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
     private void createJoin(final StringBuilder sbQuery) {
         final int joinLen = this.joins.length;
         for (int i = 0; i < joinLen; i++) {
-        	final Join<?> join = this.joins[i];
-        	sbQuery.append(join.createQueryPart());
+            final Join<?> join = this.joins[i];
+            sbQuery.append(join.createQueryPart());
         }		
     }
 
@@ -260,10 +309,9 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
     private void createWhereClause(final StringBuilder sbQuery) {
     	final ExpressionAPI[] whereExp = this.filteredQuery.getExpression();
     	if ((whereExp != null) && (whereExp.length > 0)) {
-    		sbQuery.append(WHERE); 
-    		for (ExpressionAPI expressionAPI : this.filteredQuery.getExpression()) {
-    			sbQuery.append(expressionAPI.createString());
-    		}
+            sbQuery.append(WHERE); 
+            for (ExpressionAPI expressionAPI : this.filteredQuery.getExpression())
+                sbQuery.append(expressionAPI.createString());
     	}
     }
     
@@ -273,11 +321,11 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      */
     private void createGroupBy(final StringBuilder sbQuery) {
     	if ((this.groupBy != null) && (this.groupBy.length > 0)) {
-    		sbQuery.append(GROUP_BY);
-    		for (TableField<?> field : this.groupBy) {
-    			sbQuery.append(field.getCompleteName()).append(',');
-    		}
-    		sbQuery.deleteCharAt(sbQuery.length() - 1);
+            sbQuery.append(GROUP_BY);
+            for (TableField<?> field : this.groupBy) {
+                    sbQuery.append(field.getCompleteName()).append(',');
+            }
+            sbQuery.deleteCharAt(sbQuery.length() - 1);
     	}
     }
 
@@ -287,10 +335,10 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      */
     private void createHaving(final StringBuilder sbQuery) {
     	if ((this.having != null) && (this.having.length > 0)) {
-    		sbQuery.append(HAVING);
-    		for (ExpressionAPI exp : this.having) {
-    			sbQuery.append(exp.createString());
-    		}
+            sbQuery.append(HAVING);
+            for (ExpressionAPI exp : this.having) {
+                sbQuery.append(exp.createString());
+            }
     	}
     }
 
@@ -299,14 +347,14 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      * @param sbQuery Query string to be completed.
      */
     private void createOrderBy(final StringBuilder sbQuery) {
-		if ((this.orderBy != null) && (this.orderBy.length > 0)) {
-			sbQuery.append(ORDER_BY);
-			for (TableField<?> field : this.orderBy) {
-				sbQuery.append(field.getCompleteName()).append(',');
-			}
-			sbQuery.deleteCharAt(sbQuery.length() - 1);
-		}
-	}
+        if ((this.orderBy != null) && (this.orderBy.length > 0)) {
+            sbQuery.append(ORDER_BY);
+            for (TableField<?> field : this.orderBy) {
+                sbQuery.append(field.getCompleteName()).append(',');
+            }
+            sbQuery.deleteCharAt(sbQuery.length() - 1);
+        }
+    }
 
     @Override
     public void setWhere(TableField<?> field) {
@@ -337,7 +385,7 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
 
     @Override
     public String createQueryString() {
-    		final StringBuilder sbQuery = new StringBuilder();
+        final StringBuilder sbQuery = new StringBuilder();
     	
         createSelect(sbQuery);
         createFrom(sbQuery);
@@ -362,7 +410,7 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
     @Override
     public synchronized T getSingleResult() throws SQLException {
     	if (this.readQuery == null)
-    		this.readQuery = new ReadQuery<T>(this.valueObjectFactory);
+            this.readQuery = new ReadQuery<T>(this.valueObjectFactory);
 
     	this.readQuery.setPstm(this.pstm);
     	return this.readQuery.getSingleResult();
@@ -400,17 +448,17 @@ public class SelectQuery<T> extends Query implements ReadQueryAPI<T>, FilteredQu
      * @param distinct If true, a DISTINCT word is going to be
      * put just after the Select word.
      */
-	public void setDistinct(boolean distinct) {
-		this.distinct = distinct;
-	}
+    public void setDistinct(boolean distinct) {
+        this.distinct = distinct;
+    }
 
-	/**
-	 * Getter of the presence of a <pre>DISTINCT</pre>
+    /**
+     * Getter of the presence of a <pre>DISTINCT</pre>
      * keyword after the SELECT, in order to get no duplicated records.
-	 * @return If true, a DISTINCT word is going to be
+     * @return If true, a DISTINCT word is going to be
      * put just after the Select word.
-	 */
-	public boolean isDistinct() {
-		return distinct;
-	}
+     */
+    public boolean isDistinct() {
+        return distinct;
+    }
 }

@@ -1,7 +1,7 @@
 /*
  * EasyDriver is a library that let a programmer build queries easier
  * than using plain JDBC.
- * Copyright (C) 2011 Paolo Proni
+ * Copyright (C) 2012 Paolo Proni
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,27 +17,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.byteliberi.easydriver.expressions;
-
-import org.byteliberi.easydriver.ExpressionAPI;
+package org.byteliberi.easydriver;
 
 /**
- * This is the logical operator <code>OR</code>
+ * The databases have some proprietary syntax elements, for
+ * instance PostgreSQL has the <b>ilike</b> operator.
  * 
  * @author Paolo Proni
- * @since 1.0
- * @version 1.0
  */
-public class Or extends DualOperator {
-    private final static String OPERATOR = " OR ";
-
+public interface CustomOperators {
+   
     /**
-     * Creates a new instance of this class.
-     * @param left Left part of the expression.
-     * @param right Right part of the expression.
+     * Returns a special <b>like</p> operator which
+     * does not make differences between capital and
+     * not capital letters.
+     * 
+     * @return Case insensitive LIKE operator
      */
-    public Or(final ExpressionAPI left, final ExpressionAPI right) {
-        super(left, OPERATOR, right);
-        setParentheses(true);
-    }
+    public ExpressionAPI iLike();
+    
+    /**
+     * Returns an operator that matches the similar
+     * words, by fuzzy logic.
+     * @return an operator that finds all the similar
+     * occurrencies.
+     */
+    public ExpressionAPI similar();
 }

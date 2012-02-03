@@ -22,7 +22,6 @@ package org.byteliberi.easydriver.fields.decorations;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.byteliberi.easydriver.TableField;
 import org.byteliberi.easydriver.fields.DoubleField;
 

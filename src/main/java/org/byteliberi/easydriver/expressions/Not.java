@@ -19,6 +19,7 @@
  */
 package org.byteliberi.easydriver.expressions;
 
+import org.byteliberi.easydriver.ExpressionAPI;
 import java.util.List;
 
 import org.byteliberi.easydriver.TableField;

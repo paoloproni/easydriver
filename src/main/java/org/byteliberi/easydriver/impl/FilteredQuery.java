@@ -21,7 +21,7 @@ package org.byteliberi.easydriver.impl;
 
 import org.byteliberi.easydriver.TableField;
 import org.byteliberi.easydriver.expressions.Equals;
-import org.byteliberi.easydriver.expressions.ExpressionAPI;
+import org.byteliberi.easydriver.ExpressionAPI;
 
 import java.util.LinkedList;
 import java.util.List;

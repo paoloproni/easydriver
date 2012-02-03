@@ -21,7 +21,7 @@ package org.byteliberi.easydriver.postgresql;
 
 import org.byteliberi.easydriver.TableField;
 import org.byteliberi.easydriver.expressions.DualOperator;
-import org.byteliberi.easydriver.expressions.ExpressionAPI;
+import org.byteliberi.easydriver.ExpressionAPI;
 
 /**
  * This is the logical operator <code>ilike</code> that is a PostgreSQL

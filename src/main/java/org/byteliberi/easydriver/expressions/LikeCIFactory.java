@@ -19,6 +19,7 @@
  */
 package org.byteliberi.easydriver.expressions;
 
+import org.byteliberi.easydriver.ExpressionAPI;
 import org.byteliberi.easydriver.TableField;
 import org.byteliberi.easydriver.postgresql.Ilike;
 

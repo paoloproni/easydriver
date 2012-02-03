@@ -1,7 +1,7 @@
 /*
  * EasyDriver is a library that let a programmer build queries easier
  * than using plain JDBC.
- * Copyright (C) 2011 Paolo Proni
+ * Copyright (C) 2012 Paolo Proni
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,48 +19,26 @@
  */
 package org.byteliberi.easydriver;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.byteliberi.easydriver.fields.IntField;
+import java.util.List;
 
 /**
- * This class is used when a query result is a simple, scalar, integer value
- * 
+ * An <code>Expression</code> is part of a <code>Where</code> clause,
+ * it could be a logical or mathematical expression, such as a = ? or b = ?.
+ *  
  * @author Paolo Proni
  * @since 1.0
  * @version 1.0
  */
-public class IntegerFactory implements ObjectFactory<Integer> {
-	/**
-	 * 1 based index of the column in the query
-	 */
-	private final int index;
-	
-	/**
-	 * Creates a new instance of this class
-	 */
-	public IntegerFactory() {
-		this.index = 1;
-	}
-	
-	/**
-	 * Creates a new instance of this class
-	 * @param index 1 based index of the column in the query
-	 */
-	public IntegerFactory(final int index) {
-		this.index = index;
-	}
+public interface ExpressionAPI {
+    /**
+     * Creates the query string part which matches this expression.
+     * @return part which can be inserted in a query string.
+     */
+    public String createString();
 
-	@Override
-	public Integer map(ResultSet rs) throws SQLException {
-		return ( IntField.getEmpty() ).map(rs, this.index);		
-	}
-
-	/**
-	 * Getter of the column index
-	 * @return 1 based index of the column in the query
-	 */
-	public final int getIndex() {
-		return index;
-	}
+    /**
+     * Get the parameter list.
+     * @return Parameter list.
+     */
+    public List<TableField<?>> getParameters();
 }

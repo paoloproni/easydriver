@@ -19,10 +19,10 @@
  */
 package org.byteliberi.easydriver.expressions;
 
-import org.byteliberi.easydriver.TableField;
-
+import org.byteliberi.easydriver.ExpressionAPI;
 import java.util.LinkedList;
 import java.util.List;
+import org.byteliberi.easydriver.TableField;
 
 /**
  * A <code>DualOperator</code> is a logical or mathematical operator

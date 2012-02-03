@@ -19,6 +19,8 @@
  */
 package org.byteliberi.easydriver.expressions;
 
+import org.byteliberi.easydriver.ExpressionAPI;
+
 /**
  * This is the logical operator <pre>AND</pre>
  *

@@ -1,7 +1,7 @@
 /*
  * EasyDriver is a library that let a programmer build queries easier
  * than using plain JDBC.
- * Copyright (C) 2011 Paolo Proni
+ * Copyright (C) 2012 Paolo Proni
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,25 +19,33 @@
  */
 package org.byteliberi.easydriver.expressions;
 
+import java.util.Collections;
+import java.util.List;
 import org.byteliberi.easydriver.ExpressionAPI;
+import org.byteliberi.easydriver.TableField;
 
 /**
- * This is the logical operator <code>OR</code>
+ * This is a simple wrapper for a String which is in the
+ * query <p>where</p> part of a query.
  * 
  * @author Paolo Proni
  * @since 1.0
  * @version 1.0
  */
-public class Or extends DualOperator {
-    private final static String OPERATOR = " OR ";
+public class StringExpression implements ExpressionAPI { 
+    private String exp = "";
+    
+    public StringExpression(final String exp) {
+        this.exp = exp;
+    }   
 
-    /**
-     * Creates a new instance of this class.
-     * @param left Left part of the expression.
-     * @param right Right part of the expression.
-     */
-    public Or(final ExpressionAPI left, final ExpressionAPI right) {
-        super(left, OPERATOR, right);
-        setParentheses(true);
+    @Override
+    public String createString() {
+        return this.exp;
     }
+
+    @Override
+    public List<TableField<?>> getParameters() {
+        return Collections.<TableField<?>>emptyList();
+    }    
 }

@@ -1,7 +1,7 @@
 /*
  * EasyDriver is a library that let a programmer build queries easier
  * than using plain JDBC.
- * Copyright (C) 2011 Paolo Proni
+ * Copyright (C) 2012 Paolo Proni
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,25 +19,17 @@
  */
 package org.byteliberi.easydriver.expressions;
 
-import org.byteliberi.easydriver.ExpressionAPI;
-
 /**
- * This is the logical operator <code>OR</code>
- * 
+ * This is a simple wrapper for an <p>=</p> followed by
+ * a parameter marker.
  * @author Paolo Proni
- * @since 1.0
- * @version 1.0
  */
-public class Or extends DualOperator {
-    private final static String OPERATOR = " OR ";
-
+public class ParamExpression extends StringExpression {
+    
     /**
-     * Creates a new instance of this class.
-     * @param left Left part of the expression.
-     * @param right Right part of the expression.
+     * Creates a parameter marker
      */
-    public Or(final ExpressionAPI left, final ExpressionAPI right) {
-        super(left, OPERATOR, right);
-        setParentheses(true);
-    }
+    public ParamExpression() {
+        super("=?");
+    }    
 }
